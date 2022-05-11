@@ -2,4 +2,5 @@ pkg: pgbackrest
 user: pgbackrest
 group: pgbackrest
 logs: /var/log/pgbackrest
+repository: /var/db/pgbackrest
 conf_file: /usr/local/etc/pgbackrest/pgbackrest.conf

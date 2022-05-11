@@ -12,3 +12,13 @@ pgbackrest_log_directory:
     - makedirs: True
     - require:
       - pkg: pgbackrest_pkg
+
+pgbackrest_respository:
+  file.directory:
+    - name: {{ pgbackrest.repository }}
+    - user: {{ pgbackrest.user }}
+    - group: {{ pgbackrest.group }}
+    - mode: 750
+    - makedirs: True
+    - require:
+      - pkg: pgbackrest_pkg
