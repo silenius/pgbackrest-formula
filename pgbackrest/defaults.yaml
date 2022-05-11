@@ -1,0 +1,5 @@
+pkg: pgbackrest
+user: pgbackrest
+group: pgbackrest
+logs: /var/log/pgbackrest
+conf_file: /usr/local/etc/pgbackrest/pgbackrest.conf

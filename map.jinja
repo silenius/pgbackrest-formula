@@ -1,0 +1,5 @@
+{% import_yaml "pgbackrest/defaults.yaml" as defaults %}
+
+{% set pgbackrest = salt.pillar.get('pgbackrest') %}
+
+{% do pgbackrest.update(salt.slsutil.merge(defaults, pgbackrest.lookup)) %}
