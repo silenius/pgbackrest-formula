@@ -1,6 +1,13 @@
 pkg: pgbackrest
 user: pgbackrest
 group: pgbackrest
-logs: /var/log/pgbackrest
 repository: /var/db/pgbackrest
 conf_file: /usr/local/etc/pgbackrest/pgbackrest.conf
+config:
+  global:
+    log-path: /var/log/pgbackrest
+    log-level-console: info
+    log-level-file: detail
+    log-timestamp: 
+    start-fast: y
+    repo1-retention-full: 2

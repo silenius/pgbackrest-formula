@@ -1,5 +1,11 @@
 {% import_yaml "pgbackrest/defaults.yaml" as defaults %}
 
+{% set pgbackrest_version = salt.cmd.run("pgbackrest version | awk '{print $2}'") %}
+
 {% set pgbackrest = salt.pillar.get('pgbackrest') %}
 
-{% do pgbackrest.update(salt.slsutil.merge(defaults, pgbackrest.lookup)) %}
+{% do pgbackrest.update(salt.slsutil.merge(defaults, pgbackrest)) %}
+
+{% do pgbackrest.update({
+  'version': pgbackrest_version
+}) %}

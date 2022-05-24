@@ -5,7 +5,7 @@ include:
 
 pgbackrest_log_directory:
   file.directory:
-    - name: {{ pgbackrest.logs }}
+    - name: {{ pgbackrest.config.global['log-path'] }}
     - user: {{ pgbackrest.user }}
     - group: {{ pgbackrest.group }}
     - mode: 770
@@ -22,3 +22,11 @@ pgbackrest_respository:
     - makedirs: True
     - require:
       - pkg: pgbackrest_pkg
+
+pgbakcrest_config:
+  ini.options_present:
+  - name: {{ pgbackrest.conf_file }}
+  - separator: '='
+  - sections: {{ pgbackrest.config|yaml() }}
+  - require:
+    - pkg: pgbackrest_pkg
