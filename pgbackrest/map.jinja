@@ -1,6 +1,6 @@
 {% import_yaml "pgbackrest/defaults.yaml" as defaults %}
 
-{% set pgbackrest_version = salt.cmd.run("pgbackrest version | awk '{print $2}'") %}
+{% set pgbackrest_version = salt.cmd.run("/usr/bin/which pgbackrest && pgbackrest version | awk '{print $2}' || echo 'not installed'") %}
 
 {% set pgbackrest = salt.pillar.get('pgbackrest') %}
 
