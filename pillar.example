@@ -1,0 +1,23 @@
+# vim: syntax=yaml
+
+pgbackrest:
+  pkg: override_pkg 
+  repository: /some/directory
+  user: someuser
+  group: somegroup
+  config:
+    mycluster:
+      pg1-host: somehost
+      pg1-path: /some/data/path
+    global:
+      log-level-file: info
+  cron:
+    mycluster_full_backup:
+      name: pgbackrest backup --type=full --stanza=mycluster
+      user: pgbackrest
+      special: @weekly
+    mycluster_incr_backup:
+      name: pgbackrest backup --type=incr --stanza=mycluster
+      user: pgbackrest
+      special: @300
+
