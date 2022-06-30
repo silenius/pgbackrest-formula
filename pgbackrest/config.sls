@@ -13,20 +13,40 @@ pgbackrest_log_directory:
     - require:
       - pkg: pgbackrest_pkg
 
-pgbackrest_respository:
-  file.directory:
-    - name: {{ pgbackrest.repository }}
-    - user: {{ pgbackrest.user }}
-    - group: {{ pgbackrest.group }}
-    - mode: 750
-    - makedirs: True
+pgbackrest_config:
+  ini.options_present:
+    - name: {{ pgbackrest.conf_file }}
+    - separator: '='
+    - sections: {{ pgbackrest.config|yaml() }}
     - require:
       - pkg: pgbackrest_pkg
 
-pgbakcrest_config:
-  ini.options_present:
-  - name: {{ pgbackrest.conf_file }}
-  - separator: '='
-  - sections: {{ pgbackrest.config|yaml() }}
-  - require:
-    - pkg: pgbackrest_pkg
+pgbackrest_config_permissions:
+  file.managed:
+    - name: {{ pgbackrest.conf_file }}
+    - user: {{ pgbackrest.user }}
+    - group: {{ pgbackrest.group }}
+    - mode: 640
+    - require:
+      - ini: pgbackrest_config
+
+{% if pgbackrest['stanza-create'] %}
+
+{% for section in pgbackrest.config %}
+
+{% if 'global:' not in section and section != 'global' %}
+
+pgbackrest_stanza_create_{{ section }}:
+  cmd.run:
+    - name: /usr/local/bin/pgbackrest --stanza={{ section }} stanza-create
+    - runas: {{ pgbackrest.user }}
+    - cwd: /tmp
+    - shell: /bin/sh
+    - require:
+      - file: pgbackrest_config_permissions
+
+{% endif %}
+
+{% endfor %}
+
+{% endif %}

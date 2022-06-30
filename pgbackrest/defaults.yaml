@@ -1,13 +1,11 @@
 pkg: pgbackrest
 user: pgbackrest
 group: pgbackrest
-repository: /var/db/pgbackrest
 conf_file: /usr/local/etc/pgbackrest/pgbackrest.conf
+stanza-create: False
 config:
   global:
     log-path: /var/log/pgbackrest
     log-level-console: info
     log-level-file: detail
-    log-timestamp: 
-    start-fast: y
-    repo1-retention-full: 2
+    log-timestamp: y 
