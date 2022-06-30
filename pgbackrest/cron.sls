@@ -7,7 +7,7 @@ include:
 
 {% for cron_id, cron_config in pgbackrest.cron.items() %}
 
-pgbackrest_cron:
+pgbackrest_cron_{{ cron_id }}:
   cron.present:
     - identifier: {{ cron_id }}
     {% for cron_key, cron_value in cron_config.items() %}
