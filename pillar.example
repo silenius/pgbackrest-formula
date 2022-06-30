@@ -15,9 +15,9 @@ pgbackrest:
     mycluster_full_backup:
       name: pgbackrest backup --type=full --stanza=mycluster
       user: pgbackrest
-      special: @weekly
+      special: "@weekly"
     mycluster_incr_backup:
       name: pgbackrest backup --type=incr --stanza=mycluster
       user: pgbackrest
-      special: @300
+      special: "@300"
 
