@@ -30,11 +30,12 @@ pgbackrest_config_permissions:
     - require:
       - ini: pgbackrest_config
 
-{% if pgbackrest['stanza-create'] %}
 
 {% for section in pgbackrest.config %}
 
 {% if 'global:' not in section and section != 'global' %}
+
+{% if pgbackrest['stanza-create'] %}
 
 pgbackrest_stanza_create_{{ section }}:
   cmd.run:
@@ -47,6 +48,19 @@ pgbackrest_stanza_create_{{ section }}:
 
 {% endif %}
 
-{% endfor %}
+{% if pgbackrest.check %}
+
+pgbackrest_stanza_check_{{ section }}:
+  cmd.run:
+    - name: /usr/local/bin/pgbackrest --stanza={{ section }} check
+    - runas: {{ pgbackrest.user }}
+    - cwd: /tmp
+    - shell: /bin/sh
+    - require:
+      - file: pgbackrest_config_permissions
 
 {% endif %}
+
+{% endif %}
+
+{% endfor %}

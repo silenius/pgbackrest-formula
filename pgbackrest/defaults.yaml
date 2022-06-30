@@ -3,6 +3,7 @@ user: pgbackrest
 group: pgbackrest
 conf_file: /usr/local/etc/pgbackrest/pgbackrest.conf
 stanza-create: False
+check: True
 config:
   global:
     log-path: /var/log/pgbackrest
