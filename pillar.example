@@ -35,7 +35,7 @@ pgbackrest:
       user: pgbackrest
       special: "'@weekly'"
     mycluster_incr_backup:
-      name: -n /usr/bin/lockf -f /tmp/cron_pgbackrest pgbackrest --repo=1 --type=incr --stanza=mycluster backup ; /usr/bin/lockf -f /tmp/cron_pgbackrest pgbackrest --repo=2 --type=incr --stanza=mycluste backup
+      name: -n /usr/bin/lockf -f /tmp/cron_pgbackrest pgbackrest --repo=1 --type=incr --stanza=mycluster backup ; /usr/bin/lockf -f /tmp/cron_pgbackrest pgbackrest --repo=2 --type=incr --stanza=mycluster backup
       user: pgbackrest
       special: "'@900'"
 
