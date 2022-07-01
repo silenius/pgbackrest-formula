@@ -31,11 +31,11 @@ pgbackrest:
         -----END PGP MESSAGE-----
   cron:
     mycluster_full_backup:
-      name: -n /usr/bin/lockf -k /tmp/cron_pgbackrest pgbackrest backup --type=full --stanza=mycluster
+      name: -n /usr/bin/lockf -k /tmp/cron_pgbackrest pgbackrest backup --repo=1 --type=full --stanza=mycluster ; /usr/bin/lockf -k /tmp/cron_pgbackrest pgbackrest backup --repo=2 --type=full --stanza=mycluster
       user: pgbackrest
       special: "'@weekly'"
     mycluster_incr_backup:
-      name: -n /usr/bin/lockf -f /tmp/cron_pgbackrest pgbackrest backup --type=incr --stanza=mycluster
+      name: -n /usr/bin/lockf -f /tmp/cron_pgbackrest pgbackrest backup --repo=1 --type=incr --stanza=mycluster ; /usr/bin/lockf -f /tmp/cron_pgbackrest pgbackrest backup --repo=2 --type=incr --stanza=mycluste
       user: pgbackrest
       special: "'@900'"
 
