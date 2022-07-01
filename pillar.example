@@ -2,7 +2,6 @@
 
 pgbackrest:
   pkg: override_pkg 
-  repository: /some/directory
   user: someuser
   group: somegroup
   config:
@@ -11,13 +10,32 @@ pgbackrest:
       pg1-path: /some/data/path
     global:
       log-level-file: info
+      repo1-path: /somelocal/pgbackrest
+      repo1-type: posix
+      repo1-retention-full-type: count
+      repo1-retention-full: 2
+      repo1-cipher-type: aes-256-cbc
+      repo1-cipher-pass: |
+        -----BEGIN PGP MESSAGE-----
+        XXX
+        -----END PGP MESSAGE-----
+      repo2-path: /somenfs/pgbackrest
+      repo2-bundle: y
+      repo2-type: posix
+      repo2-retention-full-type: count
+      repo2-retention-full: 6
+      repo2-cipher-type: aes-256-cbc
+      repo2-cipher-pass: |
+        -----BEGIN PGP MESSAGE-----
+        XXX
+        -----END PGP MESSAGE-----
   cron:
     mycluster_full_backup:
-      name: pgbackrest backup --type=full --stanza=mycluster
+      name: -n /usr/bin/lockf -k /tmp/cron_pgbackrest pgbackrest backup --type=full --stanza=mycluster
       user: pgbackrest
-      special: "@weekly"
+      special: "'@weekly'"
     mycluster_incr_backup:
-      name: pgbackrest backup --type=incr --stanza=mycluster
+      name: -n /usr/bin/lockf -f /tmp/cron_pgbackrest pgbackrest backup --type=incr --stanza=mycluster
       user: pgbackrest
-      special: "@300"
+      special: "'@900'"
 
