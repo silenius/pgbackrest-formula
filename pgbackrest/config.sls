@@ -17,6 +17,7 @@ pgbackrest_config:
   ini.options_present:
     - name: {{ pgbackrest.conf_file }}
     - separator: '='
+    - strict: True
     - sections: {{ pgbackrest.config|yaml() }}
     - require:
       - pkg: pgbackrest_pkg

@@ -7,6 +7,6 @@ check: True
 config:
   global:
     log-path: /var/log/pgbackrest
-    log-level-console: info
-    log-level-file: detail
+    log-level-console: warn
+    log-level-file: info
     log-timestamp: y 
