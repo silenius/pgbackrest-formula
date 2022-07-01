@@ -50,7 +50,7 @@ pgbackrest_check_repo_{{ repo }}:
 
 pgbackrest_stanza_create_{{ section }}:
   cmd.run:
-    - name: /usr/local/bin/pgbackrest --stanza={{ section }} stanza-create
+    - name: /usr/local/bin/pgbackrest --log-level-console=detail --stanza={{ section }} stanza-create
     - runas: {{ pgbackrest.user }}
     - cwd: /tmp
     - shell: /bin/sh
@@ -63,7 +63,7 @@ pgbackrest_stanza_create_{{ section }}:
 
 pgbackrest_stanza_check_{{ section }}:
   cmd.run:
-    - name: /usr/local/bin/pgbackrest --stanza={{ section }} check
+    - name: /usr/local/bin/pgbackrest --log-level-console=detail --stanza={{ section }} check
     - runas: {{ pgbackrest.user }}
     - cwd: /tmp
     - shell: /bin/sh
