@@ -31,6 +31,16 @@ pgbackrest_config_permissions:
     - require:
       - ini: pgbackrest_config
 
+{% for repo in pgbackrest.get('check-repo', ()) %}
+
+pgbackrest_check_repo_{{ repo }}:
+  file.directory:
+    - name: {{ pgbackrest.config.global['{}-path'.format(repo)] }}
+    - user: {{ pgbackrest.user }}
+    - group: {{ pgbackrest.group }}
+    - mode: 700
+
+{% endfor %}
 
 {% for section in pgbackrest.config %}
 
